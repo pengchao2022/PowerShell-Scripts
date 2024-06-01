@@ -12,9 +12,9 @@ $Content = "$VMReplicationStauts3408_1" + "$VMReplicationStauts3439_1"
 
 #Send eamils to Windows team
 If($Check_3408 -eq 'Suspended' -or $Check_3439 -eq 'Suspended'){
-$from = "CHSWPET1TST003@Nike.com"
-$MailTo = @("Lst-CDT.Retail.Windows.GCHQ@nike.com")
+$from = "pengchao.ma6@gmail.com"
+$MailTo = @("15010045761@163.com")
 $sub = "Warning !!! your VM replication needs to be changed!!!"
-$smtp = "mailhost.nike.com"
+$smtp = "mailhost.gmail.com"
 Send-MailMessage -To $MailTo -From $from -Subject $sub -Body $Content -SmtpServer $smtp -Priority High
 }
