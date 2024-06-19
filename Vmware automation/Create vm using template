@@ -1,0 +1,10 @@
+# this script is to using template to create one vm
+
+
+Connect-VIServer -Server chinabmw01.global.bmw.com.cn -User pengchao@bmw.com -Password 12345678
+$template = "Win2019"
+$datastore = "Datastore1"
+$resourcePool = "Resources"
+$vmname = "Chinaserver1"
+
+New-VM -Template $template -Datastore $datastore  -ResourcePool $resourcePool -Name $vmname
