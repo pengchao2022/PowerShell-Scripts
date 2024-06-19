@@ -1,0 +1,3 @@
+# this script is to set the vmware customer participate to false
+
+Set-PowerCLIConfiguration -Scope User -ParticipateInCeip $false
