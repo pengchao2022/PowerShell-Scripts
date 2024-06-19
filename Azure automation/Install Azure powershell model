@@ -1,0 +1,7 @@
+# this script is to install microsoft azure powershell model
+
+Install-Module -Name Az -Repository PSGallery -Force
+
+# update the az model
+
+Update-Module -Name Az -Force
