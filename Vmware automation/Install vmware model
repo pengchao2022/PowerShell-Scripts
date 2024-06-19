@@ -1,0 +1,4 @@
+# This script is to install Vmware automation model on powershell
+# written by Pengchao
+
+Install-Module VMware.PowerCLI -Scope CurrentUser -AllowClobber
