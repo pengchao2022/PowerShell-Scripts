@@ -1,0 +1,9 @@
+$servername = "RNAP02024HV001"
+
+$Session = New-PSSession -ComputerName $servername -Credential "asia\actionaccount"
+
+Invoke-Command -Session $Session -FilePath D:\ss.ps1
+
+$Session
+
+Copy-Item C:\Users\actionaccount\$servername.html -Destination D:\ -FromSession $Session
