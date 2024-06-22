@@ -1,0 +1,28 @@
+
+
+#this program is to test the website is working or not
+
+# written by Pengchao in Shanghai 2024
+
+$websites = 'www.baidu.com', 'www.google.com', 'www.nike.com', 'www.12300.com', 'www.9999999999999999999990908.com'
+
+Start-Transcript -Path D:\borgwarner\Serverlogs\websiteslog.txt
+
+foreach($site in $websites){
+
+    $pingtest = Test-Connection -ComputerName $site -Count 3 -ErrorAction SilentlyContinue
+
+    if($pingtest){
+
+        Write-Host($site + " can visit now!")
+    }
+    else{
+
+        Write-Host($site + " is not online now!")
+    }
+
+}
+
+Stop-Transcript
+
+
