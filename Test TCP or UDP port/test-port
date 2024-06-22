@@ -1,0 +1,30 @@
+function Test-Port {
+    param (
+        $ip = '10.225.80.44',
+        $port = '3389'
+    )
+
+    begin {
+        $tcp = New-Object Net.Sockets.TcpClient
+    }
+    
+    process {
+        try {
+            $tcp.Connect($ip, $port)
+        } catch {}
+
+        if ($tcp.Connected) {
+            $tcp.Close()
+            $open = $true
+        } else {
+            $open = $false
+        }
+
+        [pscustomobject]@{
+            IP = $ip
+            Port = $port
+            Open = $open
+        }
+    }
+}
+Test-Port
