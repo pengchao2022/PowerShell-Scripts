@@ -1,0 +1,34 @@
+
+
+
+<#
+Please be noticed that this script is to check the server is online or not
+
+Writter by Pengchao
+
+2024 Shanghai
+
+#>
+
+
+
+$serverlist = Get-Content D:\borborhelloworld\Serverlist1\serverlist.txt
+
+Start-Transcript -Path D:\borgwarner\Serverlogs\pingLog.txt
+
+foreach ($server in $serverlist){
+
+    $pingtest = Test-Connection -ComputerName $server -Quiet -Count 3 -ErrorAction SilentlyContinue
+
+    if($pingtest){
+
+        Write-Host($server + " is online now!")
+    }
+    else {
+        
+        Write-Host($server + " is not online currently!")
+    }
+
+}
+Stop-Transcript
+
