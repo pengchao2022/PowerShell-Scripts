@@ -1,0 +1,6 @@
+# this script is to create local user on a remote server
+
+$localUser1 = Read-Host "Please enter your local user here:"
+$password = Read-Host "Please enter your password here:" -AsSecureString
+New-LocalUser $localUser1 -Password $Password -FullName $localUser1 -Description "A new local user"
+Add-LocalGroupMember -Group "Administrators" -Member $localUser1
