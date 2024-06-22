@@ -1,0 +1,38 @@
+# this script is to create Azure storage account
+# time when the script started
+$starttime = [datetime]::UtcNow
+# location of the Resources
+$locations = @("centralus", "westus", "japanest")
+
+for($i=0; $i -lt 9; $i++){
+
+    #Resource Group Name
+    $resourceGroup = "rg" + $i;
+    #Location
+    $location = $locations[$i%3];
+    #storage Account Name
+    $storageName = "storage" + $(Get-Random);
+
+    #Creating Resource Group
+    New-AzResourceGroup -Name $resourceGroup -Location $locations
+
+    #Creating storage accounts
+    New-AzStorageAccount -ResourceGroupName $resourceGroup -AccountName $storageName -Location $location -SkuName Standard_LRS -Kind StorageV2
+
+}
+# time when the script ended
+$endtime = [datetime]::UtcNow
+
+Write-Host "Time taken to run the script $($($endtime - $starttime).totalSeconds) seconds"
+
+
+
+
+
+
+
+
+
+
+
+}
