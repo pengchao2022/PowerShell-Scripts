@@ -1,0 +1,29 @@
+# this script is to deploy new vm using ARM template, ARM is json file you can download from Azure
+# login to your Azure account
+
+Connect-AzAccount
+
+# Create your first Resource group in west us
+
+New-AzResourceGroup -Name RG_2021 -Location westus2
+$rg = "RG_2021"
+
+
+# Customer define your vm name, admin password and admin user name
+
+$vmName = "RNAP02024SV001"
+$adminUsername = "administrator"
+$adminPassword = "Heloo@12345abc"
+
+# Convert pasword to secure string
+
+ConvertTo-SecureString -String $adminPassword -AsPlainText
+
+# Create the new vm
+
+New-AzResourceGroupDeployment -ResourceGroupName $rg -TemplateFile D:\borgwarner\newvm.json -Name $vmName -adminUsername $adminUsername -adminPassword $adminPassword
+
+
+
+
+
