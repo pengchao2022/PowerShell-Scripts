@@ -1,0 +1,13 @@
+
+# this script is to display disk space info
+
+# Wiritten by Pengchao
+
+Write-Host "**********************************************************************" -ForegroundColor Green
+Write-Host "Here's the disk usage for server:" $env:COMPUTERNAME -ForegroundColor Green
+Get-WmiObject Win32_LogicalDisk -Filter DriveType=3 | Select-Object DeviceID, `
+ @{'Name'='Size (GB)'; 'Expression'={[math]::truncate($_.size / 1GB)}}, `
+ @{'Name'='Freespace (GB)'; 'Expression'={[math]::truncate($_.freespace / 1GB)}}, `
+ @{'Name'='FreePercent'; 'Expression'={[math]::Round(($_.freespace / $_.size)*100, 2)}} | Format-Table
+Write-Host "*********************************************************************" -ForegroundColor Green
+ 
