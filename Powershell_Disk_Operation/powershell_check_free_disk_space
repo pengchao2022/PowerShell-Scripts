@@ -1,0 +1,21 @@
+# this script is to pop up a window to warn user that no enough space
+
+
+$percentWarning = 90
+$percentCritcal = 5
+$ListDisk = Get-WmiObject -Class Win32_LogicalDisk
+Foreach($Disk in $ListDisk){
+if ($NULL -ne $Disk.size) {
+$DiskFreeSpace = ($Disk.freespace/1GB).ToString('F2')
+$DiskFreeSpacePercent = [Math]::Round(($Disk.freespace/$Disk.size) * 100, 2)
+if($DiskFreeSpacePercent -lt $percentWarning){
+$Message= "Warning!"
+if($DiskFreeSpacePercent -lt $percentCritcal){
+$Message= "Alert!"
+}
+$wshell = New-Object -ComObject Wscript.Shell
+$wshell.Popup("Disk $($Disk.DeviceID) has only $DiskFreeSpace GB of free space left on server: $env:computername  ",0,$Message,48)
+}
+}
+}
+
