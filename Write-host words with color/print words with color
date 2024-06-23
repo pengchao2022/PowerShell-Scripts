@@ -1,0 +1,10 @@
+# this script is to set print words with color in powershell
+
+
+Write-Host "********************************************************" -ForegroundColor Green
+Write-Host "the host name of server is:" $env:COMPUTERNAME -ForegroundColor Green
+Write-Host "********************************************************" -ForegroundColor Green
+Write-Host "Here's the services running on the server info" -ForegroundColor Green
+Write-Host "*********************************************************" -ForegroundColor Green
+
+
