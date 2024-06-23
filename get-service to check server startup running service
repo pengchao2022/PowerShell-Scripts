@@ -1,0 +1,14 @@
+# this script is to check the service automic running when server startup
+
+
+Write-Host "********************************************************" -ForegroundColor Green
+Write-Host "the host name of server is:" $env:COMPUTERNAME -ForegroundColor Green
+Write-Host "********************************************************" -ForegroundColor Green
+Write-Host "Here's the services running on the server info" -ForegroundColor Green
+Write-Host "*********************************************************" -ForegroundColor Green
+#Get-Service | Where-Object {$_.Status -eq "Running"}
+
+
+# To check the service start when the computer strtup
+Get-Service | Select-Object -Property Name,Status,StartType | Where-Object {$_.StartType -eq "Automatic"}
+
