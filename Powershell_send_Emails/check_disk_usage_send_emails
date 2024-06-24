@@ -1,0 +1,41 @@
+<#   this script is to monitor Windows server disk usage
+     It uses WinRM to connect to server and check all the disk spaces
+     You can set the Warning percent value to decide when the system will sed mail to related engineer
+
+     You need one server to run this scipt every 5 minites
+     You need to create one function mail account to send emails
+     In this script I just use my own email to send emails
+
+#>
+
+# Define the percent value of warning message
+$percentCritcal = 100
+
+# Powershell to get the disk details
+$ListDisk = Get-WmiObject -Class Win32_LogicalDisk
+Foreach($Disk in $ListDisk){
+if ($NULL -ne $Disk.size) {
+$DiskFreeSpace = ($Disk.freespace/1GB).ToString('F2')
+$DiskFreeSpacePercent = [Math]::Round(($Disk.freespace/$Disk.size) * 100, 2)
+
+# Define the mail message and the people who will receive the warning mail
+
+$sendMailMessageSplat = @{
+    From = 'pengchao <penma@chinabmw.com>'
+    To = 'pengchao <penma@chinabmw.com>'
+    Subject = "Warning! the disk of computer $Env:computername is not enough now, Insufficient disk space !!!Send by Monitor system , writte by penma@borwarner.com"
+    Body = "Disk $($Disk.DeviceID) has Only $DiskFreeSpace GB Left."
+    SmtpServer = 'smtp.bmw.com'
+    Credential = 'global\pengchao'
+    UseSsl = $false
+}
+
+# send emial when freespace is little then percent critical
+if($DiskFreeSpacePercent -lt $percentCritcal){
+    
+    # send the mail
+    Send-MailMessage @sendMailMessageSplat
+
+}
+}
+}
