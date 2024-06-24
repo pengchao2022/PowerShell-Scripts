@@ -21,11 +21,11 @@ $DiskFreeSpacePercent = [Math]::Round(($Disk.freespace/$Disk.size) * 100, 2)
 # Define the mail message and the people who will receive the warning mail
 
 $sendMailMessageSplat = @{
-    From = 'pengchao <penma@chinabmw.com>'
-    To = 'pengchao <penma@chinabmw.com>'
-    Subject = "Warning! the disk of computer $Env:computername is not enough now, Insufficient disk space !!!Send by Monitor system , writte by penma@borwarner.com"
+    From = 'pengchao <penma@chinabmw.com.cn>'
+    To = 'pengchao <penma@chinabmw.com.cn>'
+    Subject = "Warning! the disk of computer $Env:computername is not enough now, Insufficient disk space !!!Send by Monitor system , writte by pengma@chinabmw.com.cn"
     Body = "Disk $($Disk.DeviceID) has Only $DiskFreeSpace GB Left."
-    SmtpServer = 'smtp.bmw.com'
+    SmtpServer = 'smtp.bmw.com.cn'
     Credential = 'global\pengchao'
     UseSsl = $false
 }
