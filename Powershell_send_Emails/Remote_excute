@@ -2,4 +2,4 @@
 
 $serverName = Get-Content -Path D:\serverlist.txt
 
-Invoke-Command -ComputerName $serverName -Credential bmw\allenmapeng -FilePath D:\email\disk_usage_advanced.ps1
+Invoke-Command -ComputerName $serverName -Credential bmw.com.cn\allenmapeng -FilePath D:\email\disk_usage_advanced.ps1
