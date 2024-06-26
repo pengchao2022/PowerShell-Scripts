@@ -1,0 +1,32 @@
+# this script is to get the AD info
+# this script can get the ad parentDomain and Forrest name
+# the script can also get the RID master and DC OS version
+
+Get-ADDomain -Identity 'ad.bmw.com'
+
+
+# check the computer from which OU in AD
+
+Get-ADComputer -Filter "Name -like 'RNAP02024HV001'"
+
+# get the GUID of one sever
+
+Get-ADComputer -Identity RNAP02024HV001 -Properties * | Select-Object ObjectGUID 
+
+# get the lastlogon time of one server
+
+Get-ADComputer -Identity RNAP02024HV001 -Properties * | Select-Object LastLogonDate 
+
+# get the IPv4 Address of one server
+
+Get-ADComputer -Identity RNAP02024HV001 -Properties * | Select-Object IPv4Address
+
+# get the OS version of one server
+
+Get-ADComputer -Identity RNAP02024HV001 -Properties * | Select-Object OperatingSystem 
+
+# get the computer join domain date
+
+Get-ADComputer -Identity RNAP02024HV001 -Properties * | Select-Object whenCreated
+
+
