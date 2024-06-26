@@ -1,0 +1,12 @@
+
+
+
+# before we move the computer to another OU, we need to know the GUID of one computer
+
+# get the GUID of one sever
+
+Get-ADComputer -Identity RNAP02024HV001 -Properties * | Select-Object ObjectGUID 
+
+# Move the computer to another OU by the GUID
+
+Move-ADObject -Identity "8d0bcc44-c826-4dd8-af5c-2c69960fbd47" -TargetPath "OU=Managed,DC=Fabrikam,DC=Com"
