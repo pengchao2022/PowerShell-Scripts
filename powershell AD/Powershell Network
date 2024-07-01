@@ -1,0 +1,9 @@
+# this script is to check the network adapter and show the linkspeed
+
+Get-NetAdapter |Select-Object name,LinkSpeed,InterfaceOperationalStatus,MacAddress
+
+Get-NetAdapter 
+#set a static IP address to network adapter
+Get-NetAdapter -Name Ethernet0| New-NetIPAddress –IPAddress 192.168.2.50 -DefaultGateway 192.168.2.1 -PrefixLength 24
+#set dns address to network adapter
+Set-DNSClientServerAddress –InterfaceIndex 8 –ServerAddresses 192.168.2.11,10.1.2.11
