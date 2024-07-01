@@ -1,0 +1,4 @@
+# This script is to add computer to one domain and special OU
+
+Add-Computer -DomainName china.bmw.com -OUPath "OU=Marketing,OU=Global Servers,DC=china,DC=bmw,DC=com" -Credential global\pma13
+
