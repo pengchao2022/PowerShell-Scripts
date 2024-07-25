@@ -1,0 +1,120 @@
+
+
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Drawing
+
+
+$GreetingLabel = New-Object Windows.Forms.Label
+$GreetingLabel.Text = "Every Port Check Utility"
+$GreetingLabel.Font = New-Object Drawing.Font("Calibri", 30, [Drawing.FontStyle]::Bold)
+$GreetingLabel.AutoSize = $true
+$GreetingLabel.Location = New-Object Drawing.Point(20,20)
+$GreetingLabel.ForeColor = [System.Drawing.Color]::White
+
+
+
+$ServerNameLabel = New-Object Windows.Forms.Label
+$ServerNameLabel.Text = "Please enter your computer name here:"
+$ServerNameLabel.Font = New-Object Drawing.Font("Calibri", 12, [Drawing.FontStyle]::Bold)
+$ServerNameLabel.AutoSize = $true
+$ServerNameLabel.Location = New-Object Drawing.Point(10,80)
+$ServerNameLabel.ForeColor = [System.Drawing.Color]::White
+
+$ServerportNameLabel = New-Object Windows.Forms.Label
+$ServerportNameLabel.Text = "Please enter your port number here:"
+$ServerportNameLabel.Font = New-Object Drawing.Font("Calibri", 12, [Drawing.FontStyle]::Bold)
+$ServerportNameLabel.AutoSize = $true
+$ServerportNameLabel.Location = New-Object Drawing.Point(10,150)
+$ServerportNameLabel.ForeColor = [System.Drawing.Color]::White
+
+
+
+$ServerNameBox = New-Object System.Windows.Forms.TextBox
+
+$ServerNameBox.Multiline = $false
+$ServerNameBox.Size = New-Object System.Drawing.Size(300,80)
+$ServerNameBox.Location = New-Object System.Drawing.Size(10,110)
+
+$ServerportBox = New-Object System.Windows.Forms.TextBox
+
+$ServerportBox.Multiline = $false
+$ServerportBox.Size = New-Object System.Drawing.Size(300,80)
+$ServerportBox.Location = New-Object System.Drawing.Size(10,190)
+
+
+function Test_NetConnection {
+    $Result = Test-NetConnection $ServerNameBox.text -Port $ServerportBox.text
+        if($Result -contains "WARNING:"){
+            $outputBox.text = "This port is closed"
+            Clear-Host
+            }
+        else{$outputObject = [PSCustomObject]@{
+                    'ComputerName'     = $Result.ComputerName
+                    'RemoteAddress'    = $Result.RemoteAddress
+                    'RemotePort'       = $Result.RemotePort
+                    'InterfaceAlias'   = $Result.InterfaceAlias
+                    'SourceAddress'    = $Result.SourceAddress
+                    'TcpTestSucceeded' = $Result.TcpTestSucceeded
+                }
+             
+
+              $outputBox.text = $outputObject | Format-List | Out-String
+              Clear-Host
+                 
+            }
+     
+}
+
+$CheckmeButton = New-Object System.Windows.Forms.Button
+$CheckmeButton.Location = New-Object System.Drawing.Size(330,105)
+$CheckmeButton.Size = New-Object System.Drawing.Size(160,30)
+$CheckmeButton.Font=New-Object System.Drawing.Font("Lucida Console",18,[System.Drawing.FontStyle]::Regular)
+$CheckmeButton.BackColor = "LightGray"
+$CheckmeButton.Text = "Check_Me"
+$CheckmeButton.Add_Click({Test_NetConnection})
+
+$outputBox = New-Object System.Windows.Forms.TextBox           
+$outputBox.Location = New-Object System.Drawing.Size(10,250)   
+$outputBox.Size = New-Object System.Drawing.Size(565,200)      
+$outputBox.MultiLine = $True                                   
+$outputBox.ScrollBars = "Vertical" 			                  
+$outputBox.ReadOnly = $True                                    
+$outputBox.BackColor = "White"                               
+$outputBox.ForeColor ="Blue" 
+
+
+
+$ServerportUsageLabel = New-Object Windows.Forms.Label
+$ServerportUsageLabel.Text = "Here's the port check below:"
+$ServerportUsageLabel.Font = New-Object Drawing.Font("Calibri", 12, [Drawing.FontStyle]::Bold)
+$ServerportUsageLabel.AutoSize = $true
+$ServerportUsageLabel.Location = New-Object Drawing.Point(10,220)
+$ServerportUsageLabel.ForeColor = [System.Drawing.Color]::White
+
+$UIdesigner = New-Object Windows.Forms.Label
+$UIdesigner.Text = "Designed by Pengchao @Shanghai 2024/7/24"
+$UIdesigner.Font = New-Object Drawing.Font("Calibri", 12, [Drawing.FontStyle]::Bold)
+$UIdesigner.AutoSize = $true
+$UIdesigner.Location = New-Object Drawing.Point(10,450)
+$UIdesigner.ForeColor = [System.Drawing.Color]::White
+
+
+$Form = New-Object Windows.Forms.Form
+$Form.Text = "Port Check Application"
+$Form.Width = 650
+$Form.Height = 550
+$Form.BackColor = "Blue"
+$Form.AutoSize = $false
+
+
+$Form.Controls.Add($GreetingLabel)
+$Form.Controls.Add($ServerNameLabel)
+$Form.Controls.Add($ServerNameBox)
+$Form.Controls.Add($ServerportBox)
+$Form.Controls.Add($CheckmeButton)
+$Form.Controls.Add($outputBox)
+$Form.Controls.Add($ServerportNameLabel)
+$Form.Controls.Add($ServerportUsageLabel)
+$Form.Controls.Add($UIdesigner)
+$Form.Add_Shown({$Form.Activate()})
+$Form.ShowDialog()
